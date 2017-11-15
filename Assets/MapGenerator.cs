@@ -1,11 +1,13 @@
-﻿using System.Collections;
+﻿//using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MapGenerator : MonoBehaviour {
 	public Texture2D txt;
 	public GameObject tile;
-	public int[,] map = new int[200, 200]; 
+	public int[,] map = new int[200, 200];
+    private GameObject[,] terrain = new GameObject[200, 200];
 	Sprite[] sprites;
 	// Use this for initialization
 	enum Tiles{BORDER1, BORDER2, BOTTOM, BOX, CORNER, TOP, TOP_WITH_FLAG, TOP_WITHOUT_FLAG, FLOOR};
@@ -96,62 +98,80 @@ public class MapGenerator : MonoBehaviour {
 		for (int i = 0; i < 200; i++) {
 			for (int j = 0; j < 200; j++) {
 				if (map [i, j] == 0) {
-					createEmpty (i, j);
+					CreateEmpty (i, j);
 				} else if (map [i, j] == 1) {
-					createFloor (i, j);
+					CreateFloor (i, j);
 				} else {
-					calculateTypeOfWall (i, j);
+					CalculateTypeOfWall (i, j);
 				}
 			}
 		}
 	}
 	
-	void createEmpty (int i, int j)
-	{
-		int x = i;
-		float y = j * 1.5f;
-		GameObject o = Instantiate (tile, new Vector3 (x, y), new Quaternion (0, 0, 0, 0)) as GameObject;
-		o.GetComponent<SpriteRenderer> ().sprite = sprites [(int)Tiles.FLOOR];
+	void CreateEmpty (int i, int j) {
+        LoadTerrain(i, j, sprites[(int)Tiles.FLOOR]);
+    }
+
+	void CreateFloor (int i, int j) {
+        LoadTerrain(i, j, sprites[(int)Tiles.FLOOR]);
 	}
 
-	void createFloor (int i, int j)
-	{
-		int x = i;
-		float y = j * 1.5f;
-		GameObject o = Instantiate (tile, new Vector3 (x, y), new Quaternion (0, 0, 0, 0)) as GameObject;
-		o.GetComponent<SpriteRenderer> ().sprite = sprites [(int)Tiles.FLOOR];
-	}
-
-	void calculateTypeOfWall (int i, int j)
-	{
-		int x = i;
-		float y = j * 1.5f;
+	void CalculateTypeOfWall (int i, int j) {
 		if (map [i, j - 1] == 0) {
 			if (map [i, j + 1] == 2) {
-				GameObject o = Instantiate (tile, new Vector3 (x, y), new Quaternion (0, 0, 0, 0)) as GameObject;
-				o.GetComponent<SpriteRenderer> ().sprite = sprites [(int)Tiles.CORNER];
+                CreateCorner(i, j);
 			} else {
-				GameObject o = Instantiate (tile, new Vector3 (x, y), new Quaternion (0, 0, 0, 0)) as GameObject;
-				o.GetComponent<SpriteRenderer> ().sprite = sprites [(int)Tiles.TOP_WITH_FLAG];
+                CreateTop(i, j);
 			}
 		} else if (map [i, j + 1] == 0) {
-			GameObject o = Instantiate (tile, new Vector3 (x, y), new Quaternion (0, 0, 0, 0)) as GameObject;
-			o.GetComponent<SpriteRenderer> ().sprite = sprites [(int)Tiles.BOTTOM];
-		} else if (map [i + 1, j] == 0) {
-			GameObject o = Instantiate (tile, new Vector3 (x, y), new Quaternion (0, 0, 0, 0)) as GameObject;
-			o.GetComponent<SpriteRenderer> ().sprite = sprites [(int)Tiles.BORDER1];
-		} else if (map [i - 1, j] == 0) {
-			GameObject o = Instantiate (tile, new Vector3 (x, y), new Quaternion (0, 0, 0, 0)) as GameObject;
-			o.GetComponent<SpriteRenderer> ().sprite = sprites [(int)Tiles.BORDER2];
+            CreateBottom(i, j);
+		} else if (map [i + 1, j] == 0 || map[i - 1, j] == 0 || map[i, j + 1] == 1) {
+            CreateBorder(i, j);
 		} else if (map [i, j - 1] == 1) {
-			GameObject o = Instantiate (tile, new Vector3 (x, y), new Quaternion (0, 0, 0, 0)) as GameObject;
-			o.GetComponent<SpriteRenderer> ().sprite = sprites [(int)Tiles.TOP];
-		} else if (map [i, j + 1] == 1) {
-			GameObject o = Instantiate (tile, new Vector3 (x, y), new Quaternion (0, 0, 0, 0)) as GameObject;
-			o.GetComponent<SpriteRenderer> ().sprite = sprites [(int)Tiles.BORDER1];
-		} else {
-			GameObject o = Instantiate (tile, new Vector3 (x, y), new Quaternion (0, 0, 0, 0)) as GameObject;
-			o.GetComponent<SpriteRenderer> ().sprite = sprites [(int)Tiles.BORDER1];
+            CreateTop(i, j);
+			
 		}
 	}
+
+    private void CreateCorner(int i, int j) {
+        LoadTerrain(i, j, sprites[(int)Tiles.CORNER]);
+    }
+
+    private void CreateTop(int i, int j) {
+        Sprite s;
+        if (Random.value > 0.3f) {
+            if(Random.value > 0.6f) {
+                s = sprites[(int)Tiles.TOP];
+            } else {
+                s = sprites[(int)Tiles.TOP_WITH_FLAG];
+            }
+        } else {
+            s = sprites[(int)Tiles.TOP_WITHOUT_FLAG];
+        }
+        LoadTerrain(i, j, s);
+    }
+
+    private void CreateBorder(int i, int j) {
+        Sprite s;
+        if(Random.value > 0.5f) {
+            s = sprites[(int)Tiles.BORDER1];
+        } else {
+            s = sprites[(int)Tiles.BORDER2];
+        }
+        LoadTerrain(i, j, s);
+    }
+
+    private void CreateBottom(int i, int j) {
+        LoadTerrain(i, j, sprites[(int)Tiles.BOTTOM]);
+    }
+
+    private Vector2 matrixToWorld(int i, int j) {
+        return new Vector2(i, -j * 1.5f);
+    }
+    private void LoadTerrain(int i, int j, Sprite s) {
+        Vector2 pos = matrixToWorld(i, j);
+        GameObject o = Instantiate(tile, new Vector3(pos.x, pos.y), new Quaternion(0, 0, 0, 0)) as GameObject;
+        o.GetComponent<SpriteRenderer>().sprite = s;
+        terrain[i, j] = o;
+    }
 }

@@ -28,12 +28,12 @@ public class Player : MonoBehaviour {
         }
 		if(horizontal < 0 && !movementDisabled) {
             if(!sr.flipX)
-				transform.position += new Vector3(sr.size.x*transform.localScale.x / 2, 0, 0);
+				//transform.position += new Vector3(sr.size.x*transform.localScale.x / 2, 0, 0);
             sr.flipX = true;
             
 		}else if(horizontal > 0 && !movementDisabled) {
             if(sr.flipX)
-				transform.position -= new Vector3(sr.size.x*sr.transform.localScale.x / 2, 0, 0);
+				//transform.position -= new Vector3(sr.size.x*sr.transform.localScale.x / 2, 0, 0);
             sr.flipX = false;
         }
 		if(!movementDisabled)

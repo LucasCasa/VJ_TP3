@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: c39d7b6d9fe06ba4da55652f3f668574
-timeCreated: 1510192287
+timeCreated: 1510747580
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -13,6 +13,7 @@ TextureImporter:
     21300012: border1
     21300014: border2
     21300016: zfloor
+  externalObjects: {}
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -66,6 +67,7 @@ TextureImporter:
   platformSettings:
   - buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
@@ -74,6 +76,7 @@ TextureImporter:
     overridden: 0
   - buildTarget: Standalone
     maxTextureSize: 2048
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
@@ -82,6 +85,7 @@ TextureImporter:
     overridden: 0
   - buildTarget: WebGL
     maxTextureSize: 2048
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
@@ -123,9 +127,9 @@ TextureImporter:
       name: top without flag
       rect:
         serializedVersion: 2
-        x: 144
+        x: 143
         y: 480
-        width: 47
+        width: 48
         height: 72
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -212,7 +216,7 @@ TextureImporter:
         width: 48
         height: 72
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
