@@ -9,7 +9,9 @@ public class MapGenerator : MonoBehaviour {
     public static int size = 200;
 	public int[,] map = new int[size, size];
     private GameObject[,] terrain = new GameObject[size, size];
-	Sprite[] sprites;
+    public Sprite floor;
+    public Sprite empty;
+    Sprite[] sprites;
 	// Use this for initialization
 	enum Tiles{BORDER1, BORDER2, BOTTOM, BOX, CORNER, TOP, TOP_WITH_FLAG, TOP_WITHOUT_FLAG, FLOOR};
 
@@ -84,7 +86,8 @@ public class MapGenerator : MonoBehaviour {
                     if (i == startX - 1 || j == startY - 1 || j == startY + height - 1 || i == startX + width - 1 || i == 0 || j == 0 || i == size - 1 || j == size - 1) {
                         if (map[i, j] != 1) {
                             map[i, j] = 2;
-                            seeds.Add(new Vector2(i, j));
+                            if(i != startX - 1 && j != startY - 1)
+                                seeds.Add(new Vector2(i, j));
                         }
                     } else if(j > 0 && j < size && i > 0 && i < size){
                         map[i, j] = 1;
@@ -130,11 +133,13 @@ public class MapGenerator : MonoBehaviour {
 	}
 	
 	void CreateEmpty (int i, int j) {
-        LoadTerrain(i, j, sprites[(int)Tiles.BORDER2]);
+        //LoadTerrain(i, j, sprites[(int)Tiles.BORDER2]);
+        LoadTerrain(i, j, empty);
     }
 
 	void CreateFloor (int i, int j) {
-        LoadTerrain(i, j, sprites[(int)Tiles.FLOOR]);
+        //LoadTerrain(i, j, sprites[(int)Tiles.FLOOR]);
+        LoadTerrain(i, j, floor);
 	}
 
 	void CalculateTypeOfWall (int i, int j) { // Incredible complicated, don't touch
