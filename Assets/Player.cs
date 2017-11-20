@@ -36,8 +36,20 @@ public class Player : MonoBehaviour {
 				//transform.position -= new Vector3(sr.size.x*sr.transform.localScale.x / 2, 0, 0);
             sr.flipX = false;
         }
-		if(!movementDisabled)
-        	transform.position = new Vector2(transform.position.x + horizontal/ 10, transform.position.y + vertical / 10);
+        if (!movementDisabled) {
+            RaycastHit2D hit = Physics2D.CircleCast(transform.position,0.5f, new Vector2(horizontal, 0),0.1f,512);
+            if(hit.collider != null) {
+                horizontal = 0;
+                Debug.Log(hit.distance);
+            }
+            hit = Physics2D.CircleCast(transform.position,0.5f, new Vector2(0,vertical), 0.1f, 512);
+            if (hit.collider != null) {
+                vertical = 0;
+                Debug.Log(hit.distance);
+            }
+            transform.position = new Vector2(transform.position.x + horizontal / 10, transform.position.y + vertical / 10);
+        }
+        	
 
 
         if (Input.GetKeyDown(KeyCode.Space)) {
