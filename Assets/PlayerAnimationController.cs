@@ -6,9 +6,12 @@ public class PlayerAnimationController : StateMachineBehaviour {
     public Human h;
     //OnStateEnter is called before OnStateEnter is called on any state inside this state machine
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-        if (stateInfo.IsTag("attack")) {
+		if (stateInfo.IsTag("attack") || stateInfo.IsTag("dead")) {
             h.movementDisabled = true;
-        }
+		}else if(stateInfo.IsTag("exit")){
+			h.dead = true;
+		}
+
 	}
 
 	// OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
@@ -20,7 +23,7 @@ public class PlayerAnimationController : StateMachineBehaviour {
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
         if (stateInfo.IsTag("attack")) {
             h.movementDisabled = false;
-        }
+		}
     }
 
 	// OnStateMove is called before OnStateMove is called on any state inside this state machine

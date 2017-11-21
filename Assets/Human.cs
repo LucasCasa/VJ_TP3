@@ -8,6 +8,10 @@ public class Human : MonoBehaviour {
     protected bool moving = false;
     public bool movementDisabled = false;
     protected float life;
+	public RectTransform maskTransform;
+	SpriteMask healthBar;
+	public MapGenerator mg;
+	public bool dead = false;
     // Use this for initialization
     protected void Start () {
         acp.GetBehaviour<PlayerAnimationController>().h = this;

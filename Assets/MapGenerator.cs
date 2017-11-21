@@ -12,13 +12,15 @@ public class MapGenerator : MonoBehaviour {
     public Sprite floor;
     public Sprite empty;
     Sprite[] sprites;
+	public GameObject enemyPrefab;
 	// Use this for initialization
 	enum Tiles{BORDER1, BORDER2, BOTTOM, BOX, CORNER, TOP, TOP_WITH_FLAG, TOP_WITHOUT_FLAG, FLOOR};
 
 	void Start () {
 		sprites = Resources.LoadAll<Sprite>(txt.name);
         //LoadRandomMap (80,5,10);
-        LoadConnectedMap(150, 5, 10);
+        LoadConnectedMap(150, 5, 10, 10);
+
 		FillWorld ();
 		/*
 		int maxI = (int)(Random.value * 20 + 10);
@@ -68,7 +70,7 @@ public class MapGenerator : MonoBehaviour {
 	void Update () {
 		
 	}
-    void LoadConnectedMap(int rooms, int min, int variance) {
+	void LoadConnectedMap(int rooms, int min, int variance, int enemies) {
         List<Vector2> seeds = new List<Vector2> {
             new Vector2(1, 1)
         };
@@ -92,10 +94,18 @@ public class MapGenerator : MonoBehaviour {
                     } else if(j > 0 && j < size && i > 0 && i < size){
                         map[i, j] = 1;
                         seeds.Remove(new Vector2(i, j));
+
                     }
                 }
             }
         }
+		for (int i = 0; i < enemies; i++) {
+			int rand = Random.Range (0, seeds.Count);
+			Vector2 pos = seeds [rand];
+			seeds.RemoveAt (rand);
+			GameObject go = Instantiate (enemyPrefab) as GameObject;
+			go.transform.position = new Vector2(pos.x, -1.5f*pos.y);
+		}
         
     }
 	void LoadRandomMap (int rooms, int min, int variance) {
@@ -232,4 +242,5 @@ public class MapGenerator : MonoBehaviour {
             Debug.Log(line);
         }
     }
+
 }
