@@ -99,15 +99,44 @@ public class MapGenerator : MonoBehaviour {
                 }
             }
         }
-		for (int i = 0; i < enemies; i++) {
+		for (int i = 0; i < enemies && seeds.Count > 0; i++) {
 			int rand = Random.Range (0, seeds.Count);
 			Vector2 pos = seeds [rand];
+			bool couldPlace = PlaceEnemy (new Vector2Int((int)pos.x, (int)pos.y));
 			seeds.RemoveAt (rand);
-			GameObject go = Instantiate (enemyPrefab) as GameObject;
-			go.transform.position = new Vector2(pos.x, -1.5f*pos.y);
+			if (!couldPlace) {
+				i--;
+			}
 		}
         
     }
+	bool PlaceEnemy(Vector2Int pos){
+		Vector2 truePosition = new Vector2(0,0);
+		bool valid = false;
+		if (map [pos.x, pos.y] == 1) {
+			truePosition = new Vector2 (pos.x, -1.5f * pos.y);
+			valid = true;
+		} else {
+			if (map [pos.x + 1, pos.y + 1] == 1) {
+				valid = true;
+				truePosition = new Vector2 (pos.x + 1, -1.5f * (pos.y + 1));
+			} else if (map [pos.x - 1, pos.y - 1] == 1) {
+				valid = true;
+				truePosition = new Vector2 (pos.x - 1, -1.5f * (pos.y - 1));
+			} else if (map [pos.x + 1, pos.y - 1] == 1) {
+				valid = true;
+				truePosition = new Vector2 (pos.x + 1, -1.5f * (pos.y - 1));
+			} else if (map [pos.x - 1, pos.y + 1] == 1) {
+				valid = true;
+				truePosition = new Vector2 (pos.x - 1, -1.5f * (pos.y + 1));
+			}
+		}
+		if (valid) {
+			GameObject go = Instantiate (enemyPrefab) as GameObject;
+			go.transform.position = truePosition;
+		}
+		return valid;
+	}
 	void LoadRandomMap (int rooms, int min, int variance) {
 		for (int n = 0; n < rooms; n++) {
 			int startX = (int)(Random.value * 180 + 1);

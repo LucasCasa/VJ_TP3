@@ -4,21 +4,26 @@ using UnityEngine;
 
 public class Enemy : Human {
     public GameObject player;
+	bool attackMode = false;
+
+	public Transform healthBar;
+	protected float healthBarWidth;
 	// Use this for initialization
-	void Start () {
+	new void Start () {
         base.Start();
         player = GameObject.FindGameObjectWithTag("Player");
-        Debug.Log(player);
         life = 1;
+		maxLife = 1;
+		healthBarWidth = healthBar.localScale.x;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	new void Update () {
 		if (dead) {
 			Destroy (gameObject);
 		}
         float distance = Vector2.Distance(transform.position, player.transform.position);
-        if (distance < 1) {
+        if (attackMode) {
             Attack();
 		} else if(distance < 10){
             Vector2 direction = -(transform.position - player.transform.position) / distance;
@@ -27,14 +32,23 @@ public class Enemy : Human {
         }
     }
 
-	public void Hit(float attackDamage){
-		Debug.Log ("Enemy Hitted");
-		life-= attackDamage;
-		acp.SetFloat ("life", life);
-		updateBar ();
+	override protected void updateBar(){
+		healthBar.localScale = new Vector2 (healthBarWidth * life / maxLife, healthBar.localScale.y);
 	}
 
-	void updateBar(){
-		maskTransform.localScale = new Vector3(life,maskTransform.localScale.y,1);
+	new void Attack(){
+		if (!movementDisabled) {
+			Debug.Log ("EnemyAttacking");
+			base.Attack ();
+			player.GetComponent<Player> ().Hit (0.1f);
+		}
+	}
+	void OnTriggerEnter2D(Collider2D other){
+		if(other.GetComponent<Player>() != null)
+			attackMode = true;
+	}
+
+	void OnTriggerExit2D(Collider2D other){
+		attackMode = false;
 	}
 }

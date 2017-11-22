@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Human : MonoBehaviour {
+abstract public class Human : MonoBehaviour {
     public Animator acp;
     public SpriteRenderer sr;
     protected bool moving = false;
     public bool movementDisabled = false;
+
+	protected float maxLife;
     protected float life;
-	public RectTransform maskTransform;
-	SpriteMask healthBar;
-	public MapGenerator mg;
 	public bool dead = false;
-    // Use this for initialization
+
+	public MapGenerator mg;
+
     protected void Start () {
         acp.GetBehaviour<PlayerAnimationController>().h = this;
 	}
@@ -60,4 +61,15 @@ public class Human : MonoBehaviour {
             acp.SetTrigger("attack");
         }
     }
+
+	public bool Hit(float attackDamage){
+		Debug.Log ("Enemy Hitted");
+		life-= attackDamage;
+		acp.SetFloat ("life", life);
+		updateBar ();
+		return life <= 0.01;
+	}
+
+	abstract protected void updateBar ();
+
 }
