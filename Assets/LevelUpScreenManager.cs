@@ -14,7 +14,7 @@ public class LevelUpScreenManager : MonoBehaviour {
 	public Image[,] yellowBar = new Image[4, 10];
 	public Image[,] backBar = new Image[4, 10];
     public Button[] buttons = new Button[4];
-    public Text[] texts = new Text[4];
+    public Text[] texts = new Text[5];
 
     public Button accept;
     public Button cancel;
