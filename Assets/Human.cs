@@ -10,7 +10,7 @@ abstract public class Human : MonoBehaviour {
 
     public bool dead = false;
 
-    protected float maxLifeBase;
+    protected float maxLifeBase = 1;
     protected int maxLifeLevel = 1;
     protected float life;
 
@@ -19,19 +19,23 @@ abstract public class Human : MonoBehaviour {
 
     protected float runSpeedBase = 1;
     protected int runSpeedLevel = 1;
+    protected float actualSpeed;
 
     protected float shieldBase;
     protected int shieldLevel = 1;
 
-    protected float attackSpeedBase;
+    protected float attackSpeedBase = 1;
     protected int attackSpeedLevel = 1;
+    protected float actualAttackSpeed;
 
     public MapGenerator mg;
 
     protected void Start () {
         acp.GetBehaviour<PlayerAnimationController>().h = this;
-        acp.SetFloat("runSpeed", runSpeedBase);
-	}
+        actualSpeed = Mathf.Sqrt(runSpeedLevel) * runSpeedBase;
+        actualAttackSpeed = Mathf.Sqrt(attackSpeedLevel) * attackSpeedBase;
+        acp.SetFloat("runSpeed", actualSpeed);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -68,7 +72,7 @@ abstract public class Human : MonoBehaviour {
             if (hit.collider != null) {
                 vertical = 0;
             }
-            transform.position+= new Vector3(horizontal * (runSpeedBase * runSpeedLevel) / 10, vertical * (runSpeedBase * runSpeedLevel) / 10,0);
+            transform.position+= new Vector3(Speed(horizontal), Speed(vertical));
         }
     }
     protected void Attack() {
@@ -89,7 +93,11 @@ abstract public class Human : MonoBehaviour {
 
     public int RunSpeedLevel {
         get { return runSpeedLevel; }
-        set { runSpeedLevel = value; }
+        set {
+            runSpeedLevel = value;
+            actualSpeed = Mathf.Sqrt(runSpeedLevel) * runSpeedBase;
+            acp.SetFloat("runSpeed", actualSpeed);
+        }
     }
 
     public int AttackLevel {
@@ -99,7 +107,11 @@ abstract public class Human : MonoBehaviour {
 
     public int AttackSpeedLevel {
         get { return attackSpeedLevel; }
-        set { attackSpeedLevel = value; }
+        set {
+            attackSpeedLevel = value;
+            actualAttackSpeed = Mathf.Sqrt(attackSpeedLevel) * attackSpeedBase;
+            acp.SetFloat("attackSpeed", actualAttackSpeed);
+        }
     }
 
     public int LifeLevel {
@@ -120,5 +132,13 @@ abstract public class Human : MonoBehaviour {
             default:
                 return -1;
         }
+    }
+
+    protected float Speed() {
+        return actualSpeed;
+    }
+
+    protected float Speed(float magnitude) {
+        return Time.deltaTime * actualSpeed * magnitude * 5;
     }
 }

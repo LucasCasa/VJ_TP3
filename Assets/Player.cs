@@ -110,8 +110,7 @@ public class Player : Human {
     }
 
     private void LevelUpAttackSpeed() {
-        attackSpeedLevel++;
-        acp.SetFloat("attackSpeed", attackSpeedBase*attackSpeedLevel);
+        AttackSpeedLevel++;
     }
 
     private void LevelUpAttack() {
@@ -119,7 +118,7 @@ public class Player : Human {
     }
 
     private void LevelUpSpeed() {
-        runSpeedLevel++;
-        acp.SetFloat("runSpeed", runSpeedBase * runSpeedLevel);
+        RunSpeedLevel++;
+        
     }
 }
