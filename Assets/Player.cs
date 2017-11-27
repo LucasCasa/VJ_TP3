@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,15 +15,18 @@ public class Player : Human {
 	public int level = 1;
 	int xp = 0;
 	int xpNecessary = 10;
+    private float attackSpeed = 1;
+
 	// Use this for initialization
 	new void Start () {
         base.Start();   
 		healthBarWidth = healthBar.sizeDelta.x;
 		expBarWidth = expBar.sizeDelta.x;
         life = 10;
-		maxLife = 10;
-		acp.SetFloat ("attackSpeed", 1);
-		acp.SetFloat ("life", 10);
+		maxLifeBase = 10;
+        attackBase = 1;
+		acp.SetFloat ("attackSpeed", attackSpeed);
+		acp.SetFloat ("life", life);
 		updateExpBar ();
 
 	}
@@ -44,7 +48,7 @@ public class Player : Human {
 		base.Attack ();
 		if (!movementDisabled) {
 			foreach (Enemy e in Targets) {
-				if (e.Hit (0.1f)) {
+				if (e.Hit (attackBase*attackLevel)) {
 					xp+= 5;
 					updateExpBar ();
 				}
@@ -67,7 +71,7 @@ public class Player : Human {
 	}
 
 	override protected void updateBar(){
-		healthBar.sizeDelta = new Vector2 (healthBarWidth * life / maxLife, healthBar.sizeDelta.y);
+		healthBar.sizeDelta = new Vector2 (healthBarWidth * life / (maxLifeBase * maxLifeLevel), healthBar.sizeDelta.y);
 	}
 
 	void updateExpBar(){
@@ -79,4 +83,43 @@ public class Player : Human {
 		}
 		expBar.sizeDelta = new Vector2 (expBarWidth * xp / xpNecessary, expBar.sizeDelta.y);
 	}
+
+    public void LevelUp(int id) {
+        Debug.Log("LeveledUP " + id);
+        switch (id) {
+            case 1:
+                LevelUpSpeed();
+                break;
+            case 2:
+                LevelUpAttack();
+                break;
+            case 3:
+                LevelUpAttackSpeed();
+                break;
+            case 4:
+                LevelUpLife();
+                break;
+        }
+        life = maxLifeBase * LifeLevel;
+        updateBar();
+        acp.SetFloat("life", life);
+    }
+
+    private void LevelUpLife() {
+        maxLifeLevel++;
+    }
+
+    private void LevelUpAttackSpeed() {
+        attackSpeedLevel++;
+        acp.SetFloat("attackSpeed", attackSpeedBase*attackSpeedLevel);
+    }
+
+    private void LevelUpAttack() {
+        attackLevel++;
+    }
+
+    private void LevelUpSpeed() {
+        runSpeedLevel++;
+        acp.SetFloat("runSpeed", runSpeedBase * runSpeedLevel);
+    }
 }

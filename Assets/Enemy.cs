@@ -13,7 +13,8 @@ public class Enemy : Human {
         base.Start();
         player = GameObject.FindGameObjectWithTag("Player");
         life = 1;
-		maxLife = 1;
+		maxLifeBase = 1;
+        attackBase = 0.1f;
 		healthBarWidth = healthBar.localScale.x;
 	}
 	
@@ -33,14 +34,14 @@ public class Enemy : Human {
     }
 
 	override protected void updateBar(){
-		healthBar.localScale = new Vector2 (healthBarWidth * life / maxLife, healthBar.localScale.y);
+		healthBar.localScale = new Vector2 (healthBarWidth * life / (maxLifeBase * maxLifeLevel), healthBar.localScale.y);
 	}
 
 	new void Attack(){
 		if (!movementDisabled) {
 			Debug.Log ("EnemyAttacking");
 			base.Attack ();
-			player.GetComponent<Player> ().Hit (0.1f);
+			player.GetComponent<Player> ().Hit (attackBase * attackLevel);
 		}
 	}
 	void OnTriggerEnter2D(Collider2D other){

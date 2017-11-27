@@ -8,14 +8,29 @@ abstract public class Human : MonoBehaviour {
     protected bool moving = false;
     public bool movementDisabled = false;
 
-	protected float maxLife;
-    protected float life;
-	public bool dead = false;
+    public bool dead = false;
 
-	public MapGenerator mg;
+    protected float maxLifeBase;
+    protected int maxLifeLevel = 1;
+    protected float life;
+
+    protected float attackBase;
+    protected int attackLevel = 1;
+
+    protected float runSpeedBase = 1;
+    protected int runSpeedLevel = 1;
+
+    protected float shieldBase;
+    protected int shieldLevel = 1;
+
+    protected float attackSpeedBase;
+    protected int attackSpeedLevel = 1;
+
+    public MapGenerator mg;
 
     protected void Start () {
         acp.GetBehaviour<PlayerAnimationController>().h = this;
+        acp.SetFloat("runSpeed", runSpeedBase);
 	}
 	
 	// Update is called once per frame
@@ -53,7 +68,7 @@ abstract public class Human : MonoBehaviour {
             if (hit.collider != null) {
                 vertical = 0;
             }
-            transform.position = new Vector2(transform.position.x + horizontal / 10, transform.position.y + vertical / 10);
+            transform.position+= new Vector3(horizontal * (runSpeedBase * runSpeedLevel) / 10, vertical * (runSpeedBase * runSpeedLevel) / 10,0);
         }
     }
     protected void Attack() {
@@ -72,4 +87,38 @@ abstract public class Human : MonoBehaviour {
 
 	abstract protected void updateBar ();
 
+    public int RunSpeedLevel {
+        get { return runSpeedLevel; }
+        set { runSpeedLevel = value; }
+    }
+
+    public int AttackLevel {
+        get { return attackLevel; }
+        set { attackLevel = value; }
+    }
+
+    public int AttackSpeedLevel {
+        get { return attackSpeedLevel; }
+        set { attackSpeedLevel = value; }
+    }
+
+    public int LifeLevel {
+        get { return maxLifeLevel; }
+        set { maxLifeLevel = value; }
+    }
+
+    public int getStat(int id) {
+        switch (id) {
+            case 1:
+                return RunSpeedLevel;
+            case 2:
+                return AttackLevel;
+            case 3:
+                return AttackSpeedLevel;
+            case 4:
+                return LifeLevel;
+            default:
+                return -1;
+        }
+    }
 }
