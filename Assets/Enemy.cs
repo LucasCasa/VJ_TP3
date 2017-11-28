@@ -52,4 +52,11 @@ public class Enemy : Human {
 	void OnTriggerExit2D(Collider2D other){
 		attackMode = false;
 	}
+
+    public void SetLevel(int level) {
+        LifeLevel = level;
+        AttackLevel = level;
+        RunSpeedLevel = level;
+        AttackSpeedLevel = level;
+    }
 }

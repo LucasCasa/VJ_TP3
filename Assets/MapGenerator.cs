@@ -18,6 +18,7 @@ public class MapGenerator : MonoBehaviour {
 	public GameObject enemyPrefab;
     List<GameObject> enemies = new List<GameObject>();
     private bool alreadyGenerated = false;
+    private int level = 0;
 	// Use this for initialization
 	enum Tiles{BORDER1, BORDER2, BOTTOM, BOX, CORNER, TOP, TOP_WITH_FLAG, TOP_WITHOUT_FLAG, FLOOR};
 
@@ -29,6 +30,7 @@ public class MapGenerator : MonoBehaviour {
     }
 
     public void LoadConnectedMap(int rooms, int min, int variance, int enemies) {
+        level++;
         KillRemainingEnemies();
         ClearMap();
         List<Vector2> seeds = new List<Vector2> {
@@ -170,6 +172,7 @@ public class MapGenerator : MonoBehaviour {
 		}
 		if (valid) {
 			GameObject go = GameObject.Instantiate (enemyPrefab) as GameObject;
+            go.GetComponent<Enemy>().SetLevel(level);
 			go.transform.position = truePosition;
             enemies.Add(go);
 		}
