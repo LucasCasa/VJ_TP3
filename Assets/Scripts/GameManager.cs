@@ -8,15 +8,32 @@ public class GameManager : MonoBehaviour {
     int currentLevel = 1;
     public MapGenerator mg;
     public Image loadingScreen;
+	public Canvas pauseScreen;
     bool generated = false;
     bool createOnNext = false;
+	bool paused = false;
 	// Use this for initialization
 	void Start () {
-        
+		pauseScreen.gameObject.SetActive (false);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			if(!paused){
+				Cursor.lockState = CursorLockMode.None;
+				paused = true;
+				Time.timeScale = 0;
+				pauseScreen.gameObject.SetActive (true);
+			}else{
+				Cursor.lockState = CursorLockMode.Locked;
+				paused = false;
+				Time.timeScale = 1;
+				pauseScreen.gameObject.SetActive (false);
+			}
+		}
+
         if (createOnNext) {
             generateNewLevel();
             loadingScreen.gameObject.SetActive(false);
