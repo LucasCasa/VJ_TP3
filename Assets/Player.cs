@@ -16,6 +16,7 @@ public class Player : Human {
 	int xp = 0;
 	int xpNecessary = 10;
     private float attackSpeed = 1;
+    public bool winLevel = false; 
 
 	// Use this for initialization
 	new void Start () {
@@ -56,11 +57,17 @@ public class Player : Human {
 		}
 	}
 
-	void OnTriggerEnter2D(Collider2D other) {
-		Debug.Log ("Dentro del rango");
-		Enemy e = other.GetComponent<Enemy> ();
-		if(e != null)
- 			Targets.Add (e);
+    void OnTriggerEnter2D(Collider2D other) {
+        Debug.Log("Dentro del rango");
+        Enemy e = other.GetComponent<Enemy>();
+        if (e != null) { 
+            Targets.Add(e);
+        } else {
+            if (other.tag == "exit") {
+                Debug.Log("GANE");
+                winLevel = true;
+            }
+        }
 	}
 
 	void OnTriggerExit2D(Collider2D other){

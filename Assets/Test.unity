@@ -136,7 +136,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 49632242}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 20.299995, y: 140.24998, z: 0}
+  m_LocalPosition: {x: 20.299995, y: 140.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 878284431}
@@ -464,6 +464,53 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 378737290}
+--- !u!1 &432417809
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 432417811}
+  - component: {fileID: 432417810}
+  m_Layer: 0
+  m_Name: MapGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &432417810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 432417809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d18b39f5c08294244aa128b7bf1f19f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  txt: {fileID: 2800000, guid: c39d7b6d9fe06ba4da55652f3f668574, type: 3}
+  tile: {fileID: 1049263675889794, guid: 8e80041f12324fb41a0152e9791ab310, type: 2}
+  floor: {fileID: 21300000, guid: 52e7011051ff40a458bd483f301d983d, type: 3}
+  empty: {fileID: 21300000, guid: 51a0ec8ac5c783d41a11ba32507253ae, type: 3}
+  ladder: {fileID: 21300000, guid: d66b9ffc0131b9e49a24070b6439da48, type: 3}
+  enemyPrefab: {fileID: 1270940999323462, guid: 9e0d7eeb0a14548eb8e41d017f5b1496,
+    type: 2}
+--- !u!4 &432417811
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 432417809}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &641092935
 GameObject:
   m_ObjectHideFlags: 0
@@ -592,7 +639,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &878284430
 GameObject:
@@ -1546,7 +1593,7 @@ GameObject:
   - component: {fileID: 1398694538}
   - component: {fileID: 1398694537}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1560,15 +1607,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1398694536}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d18b39f5c08294244aa128b7bf1f19f2, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b3bd6560c8969f40ab74aebf4ec9fb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txt: {fileID: 2800000, guid: c39d7b6d9fe06ba4da55652f3f668574, type: 3}
-  tile: {fileID: 1049263675889794, guid: 8e80041f12324fb41a0152e9791ab310, type: 2}
-  floor: {fileID: 21300000, guid: 52e7011051ff40a458bd483f301d983d, type: 3}
-  empty: {fileID: 21300000, guid: 51a0ec8ac5c783d41a11ba32507253ae, type: 3}
-  enemyPrefab: {fileID: 1270940999323462, guid: 9e0d7eeb0a14548eb8e41d017f5b1496,
-    type: 2}
+  p: {fileID: 1553698568}
+  mg: {fileID: 432417810}
+  loadingScreen: {fileID: 21300000, guid: 09eab12b89812f742b38a4b289c8c5d4, type: 3}
 --- !u!4 &1398694538
 Transform:
   m_ObjectHideFlags: 0
@@ -1744,7 +1788,7 @@ Transform:
   - {fileID: 1984486578}
   - {fileID: 1839179147}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1553698568
 MonoBehaviour:
@@ -1766,6 +1810,7 @@ MonoBehaviour:
   expBar: {fileID: 1659335831}
   levelText: {fileID: 286276451}
   level: 1
+  winLevel: 0
 --- !u!50 &1553698569
 Rigidbody2D:
   serializedVersion: 4
@@ -2399,7 +2444,7 @@ RectTransform:
   - {fileID: 2039017944}
   - {fileID: 878284431}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

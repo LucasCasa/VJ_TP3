@@ -1,10 +1,18 @@
 fileFormatVersion: 2
 guid: d18b39f5c08294244aa128b7bf1f19f2
-timeCreated: 1510188935
+timeCreated: 1511824348
 licenseType: Free
 MonoImporter:
+  externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - txt: {fileID: 2800000, guid: c39d7b6d9fe06ba4da55652f3f668574, type: 3}
+  - tile: {fileID: 1049263675889794, guid: 8e80041f12324fb41a0152e9791ab310, type: 2}
+  - floor: {fileID: 21300000, guid: 52e7011051ff40a458bd483f301d983d, type: 3}
+  - empty: {fileID: 21300000, guid: 51a0ec8ac5c783d41a11ba32507253ae, type: 3}
+  - ladder: {fileID: 21300000, guid: d66b9ffc0131b9e49a24070b6439da48, type: 3}
+  - enemyPrefab: {fileID: 1270940999323462, guid: 9e0d7eeb0a14548eb8e41d017f5b1496,
+      type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
