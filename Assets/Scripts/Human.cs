@@ -64,11 +64,11 @@ abstract public class Human : MonoBehaviour {
         }
 
         if (!movementDisabled) {
-            RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.5f, new Vector2(horizontal, 0), 0.1f, 512);
+            RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.3f, new Vector2(horizontal, 0), 0.2f, 512);
             if (hit.collider != null) {
                 horizontal = 0;
             }
-            hit = Physics2D.CircleCast(transform.position, 0.5f, new Vector2(0, vertical), 0.1f, 512);
+            hit = Physics2D.CircleCast(transform.position, 0.3f, new Vector2(0, vertical), 0.2f, 512);
             if (hit.collider != null) {
                 vertical = 0;
             }
