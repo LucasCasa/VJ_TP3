@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
     public Player p;
     int currentLevel = 1;
     public MapGenerator mg;
-    public Sprite loadingScreen;
+    public Image loadingScreen;
     bool generated = false;
+    bool createOnNext = false;
 	// Use this for initialization
 	void Start () {
         
@@ -15,13 +17,22 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (!generated) {
+        if (createOnNext) {
             generateNewLevel();
+            loadingScreen.gameObject.SetActive(false);
+        }
+
+        if (!generated) {
+            loadingScreen.gameObject.SetActive(true);
+            createOnNext = true;
         }
         if (p.winLevel) {
+            loadingScreen.gameObject.SetActive(true);
             currentLevel++;
-            generateNewLevel();
+            createOnNext = true;
         }
+        
+
     }
 
     private void generateNewLevel() {
@@ -30,5 +41,6 @@ public class GameManager : MonoBehaviour {
         generated = true;
         p.transform.position = new Vector2(2, -2);
         p.winLevel = false;
+        createOnNext = false;
     }
 }
