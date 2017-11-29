@@ -1377,6 +1377,49 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1175399807}
+--- !u!1 &1183927342
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1183927344}
+  - component: {fileID: 1183927343}
+  m_Layer: 0
+  m_Name: StatsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1183927343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1183927342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41cbfe9419b9a47c7b7fbb981b238c81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  p: {fileID: 1553698568}
+  playerLevels: 00000000000000000000000000000000000000000000000000000000
+  dungeonLevel: 0
+--- !u!4 &1183927344
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1183927342}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.9414, y: -1.3139999, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1231127807
 GameObject:
   m_ObjectHideFlags: 0
@@ -1687,6 +1730,7 @@ MonoBehaviour:
   p: {fileID: 1553698568}
   mg: {fileID: 432417810}
   loadingScreen: {fileID: 446626100}
+  sm: {fileID: 1183927343}
 --- !u!4 &1398694538
 Transform:
   m_ObjectHideFlags: 0
@@ -1962,6 +2006,8 @@ MonoBehaviour:
   dead: 0
   missSound: {fileID: 8300000, guid: cb20558b0ce8afc42be06bb79e47fb9a, type: 3}
   hitSound: {fileID: 8300000, guid: 57a7641e37601d148a5da696642a11b1, type: 3}
+  kills: 0
+  hitsTaken: 0
   healthBar: {fileID: 1288781290}
   expBar: {fileID: 1659335831}
   levelText: {fileID: 286276451}

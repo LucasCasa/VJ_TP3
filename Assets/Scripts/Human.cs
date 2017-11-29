@@ -32,6 +32,9 @@ abstract public class Human : MonoBehaviour {
     public AudioClip missSound;
     public AudioClip hitSound;
 
+	public int kills;
+	public int hitsTaken;
+
     protected void Start () {
         acp.GetBehaviour<PlayerAnimationController>().h = this;
         actualSpeed = Mathf.Sqrt(runSpeedLevel) * runSpeedBase;
@@ -91,6 +94,7 @@ abstract public class Human : MonoBehaviour {
 		Debug.Log ("Enemy Life: " + life);
 		acp.SetFloat ("life", life);
 		updateBar ();
+		hitsTaken++;
 		return life <= 0.01;
 	}
 

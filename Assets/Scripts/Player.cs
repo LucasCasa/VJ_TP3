@@ -51,6 +51,7 @@ public class Player : Human {
 			foreach (Enemy e in Targets) {
 				if (e.Hit (attackBase*attackLevel)) {
 					xp+= 5;
+					kills++;
 					updateExpBar ();
 				}
 			}
@@ -134,4 +135,8 @@ public class Player : Human {
         RunSpeedLevel++;
         
     }
+
+	public bool isDead(){
+		return life < 0.01f;
+	}
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     public Player p;
@@ -10,6 +11,7 @@ public class GameManager : MonoBehaviour {
     public Image loadingScreen;
     bool generated = false;
     bool createOnNext = false;
+	public StatsManager sm;
     // Use this for initialization
 
 	void Start () {        
@@ -33,8 +35,10 @@ public class GameManager : MonoBehaviour {
             currentLevel++;
             createOnNext = true;
         }
-        
-
+		if (p.isDead ()) {
+			sm.LoadStats (currentLevel);
+			SceneManager.LoadScene ("End");
+		}
     }
 
     private void generateNewLevel() {
