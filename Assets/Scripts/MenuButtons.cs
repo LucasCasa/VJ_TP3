@@ -8,7 +8,7 @@ public class MenuButtons: MonoBehaviour
         SceneManager.LoadScene("Test");
     }
 
-    vod goToSettings(){
+    void goToSettings(){
         //SceneManager.LoadScene("settings");
     }
 

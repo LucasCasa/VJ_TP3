@@ -19,6 +19,7 @@ public class MapGenerator : MonoBehaviour {
     List<GameObject> enemies = new List<GameObject>();
     private bool alreadyGenerated = false;
     private int level = 0;
+    public RuntimeAnimatorController[] animators;
 	// Use this for initialization
 	enum Tiles{BORDER1, BORDER2, BOTTOM, BOX, CORNER, TOP, TOP_WITH_FLAG, TOP_WITHOUT_FLAG, FLOOR};
 
@@ -172,13 +173,15 @@ public class MapGenerator : MonoBehaviour {
 		}
 		if (valid) {
 			GameObject go = GameObject.Instantiate (enemyPrefab) as GameObject;
+            go.GetComponent<Animator>().runtimeAnimatorController = animators[Random.Range(0, 4)];
             go.GetComponent<Enemy>().SetLevel(level);
 			go.transform.position = truePosition;
             enemies.Add(go);
 		}
 		return valid;
 	}
-	void LoadRandomMap (int rooms, int min, int variance) {
+
+    void LoadRandomMap (int rooms, int min, int variance) {
 		for (int n = 0; n < rooms; n++) {
 			int startX = (int)(Random.value * 180 + 1);
 			int startY = (int)(Random.value * 180 + 1);
