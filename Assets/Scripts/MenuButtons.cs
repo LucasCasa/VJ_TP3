@@ -4,15 +4,11 @@ using UnityEngine.SceneManagement;
 
 public class MenuButtons: MonoBehaviour
 {
-    void goToStart(){
+    public void goToStart(){
         SceneManager.LoadScene("Test");
     }
 
-    void goToSettings(){
-        //SceneManager.LoadScene("settings");
-    }
-
-    void Quit(){
+    public void Quit(){
         Application.Quit();
     }
 }
