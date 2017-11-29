@@ -58,6 +58,8 @@ public class Enemy : Human {
 
     public void SetLevel(int level) {
         LifeLevel = level;
+		life = maxLifeBase * LifeLevel;
+		updateBar ();
         AttackLevel = level;
         RunSpeedLevel = level;
         AttackSpeedLevel = level;
