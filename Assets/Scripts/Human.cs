@@ -85,8 +85,10 @@ abstract public class Human : MonoBehaviour {
     }
 
 	public bool Hit(float attackDamage){
-		Debug.Log ("Enemy Hitted");
+		Debug.Log ("Enemy Hitted " + attackDamage);
+		Debug.Log ("Enemy Life: " + life);
 		life-= attackDamage;
+		Debug.Log ("Enemy Life: " + life);
 		acp.SetFloat ("life", life);
 		updateBar ();
 		return life <= 0.01;
@@ -119,7 +121,11 @@ abstract public class Human : MonoBehaviour {
 
     public int LifeLevel {
         get { return maxLifeLevel; }
-        set { maxLifeLevel = value; }
+        set { 
+			maxLifeLevel = value;
+			life = maxLifeBase * maxLifeLevel;
+			acp.SetFloat ("life", life);
+		}
     }
 
     public int getStat(int id) {

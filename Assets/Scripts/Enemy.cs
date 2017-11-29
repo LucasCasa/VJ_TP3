@@ -12,10 +12,7 @@ public class Enemy : Human {
 	new void Start () {
         base.Start();
         player = GameObject.FindGameObjectWithTag("Player");
-        life = 1;
-		maxLifeBase = 1;
         attackBase = 0.1f;
-		healthBarWidth = healthBar.localScale.x;
         audioSource.clip = hitSound;
 
     }
@@ -36,6 +33,9 @@ public class Enemy : Human {
     }
 
 	override protected void updateBar(){
+		Debug.Log ("Life: " + life);
+		Debug.Log ("MAX: " + (maxLifeBase * maxLifeLevel));
+		Debug.Log ("Width: " + healthBarWidth);
 		healthBar.localScale = new Vector2 (healthBarWidth * life / (maxLifeBase * maxLifeLevel), healthBar.localScale.y);
 	}
 
@@ -58,7 +58,7 @@ public class Enemy : Human {
 
     public void SetLevel(int level) {
         LifeLevel = level;
-		life = maxLifeBase * LifeLevel;
+		healthBarWidth = healthBar.localScale.x;
 		updateBar ();
         AttackLevel = level;
         RunSpeedLevel = level;
