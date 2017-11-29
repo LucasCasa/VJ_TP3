@@ -59,6 +59,8 @@ public class MapGenerator : MonoBehaviour {
 
         for(int i = 0; i<sizex; i++) {
             for(int j = 0; j< sizey; j++) {
+                if (map[i, j] == 3)
+                    terrain[i, j].tag = "Untagged";
                 map[i, j] = 0;
             }
         }
@@ -317,6 +319,7 @@ public class MapGenerator : MonoBehaviour {
             o.GetComponent<BoxCollider2D>().enabled = true;
             o.layer = 9;
         } else if(map[i, j] < 2){
+            o.GetComponent<BoxCollider2D>().enabled = false;
             o.layer = 8;
         } else {
             o.GetComponent<BoxCollider2D>().enabled = true;

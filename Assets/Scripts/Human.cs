@@ -28,13 +28,16 @@ abstract public class Human : MonoBehaviour {
     protected int attackSpeedLevel = 1;
     protected float actualAttackSpeed;
 
-    public MapGenerator mg;
+    protected AudioSource audioSource;
+    public AudioClip missSound;
+    public AudioClip hitSound;
 
     protected void Start () {
         acp.GetBehaviour<PlayerAnimationController>().h = this;
         actualSpeed = Mathf.Sqrt(runSpeedLevel) * runSpeedBase;
         actualAttackSpeed = Mathf.Sqrt(attackSpeedLevel) * attackSpeedBase;
         acp.SetFloat("runSpeed", actualSpeed);
+        audioSource = GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame

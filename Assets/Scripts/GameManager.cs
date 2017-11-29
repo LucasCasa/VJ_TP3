@@ -10,10 +10,12 @@ public class GameManager : MonoBehaviour {
     public Image loadingScreen;
     bool generated = false;
     bool createOnNext = false;
-	// Use this for initialization
-	void Start () {
-        
-	}
+    // Use this for initialization
+
+	void Start () {        
+        //gameMusic.Play();
+        //gameMusic.loop = true;
+    }
 	
 	// Update is called once per frame
 	void Update () {

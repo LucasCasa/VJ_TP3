@@ -54,6 +54,12 @@ public class Player : Human {
 					updateExpBar ();
 				}
 			}
+            if(Targets.Count > 0) {
+                audioSource.clip = hitSound;
+            } else {
+                audioSource.clip = missSound;
+            }
+            audioSource.Play();
 		}
 	}
 

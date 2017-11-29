@@ -16,7 +16,9 @@ public class Enemy : Human {
 		maxLifeBase = 1;
         attackBase = 0.1f;
 		healthBarWidth = healthBar.localScale.x;
-	}
+        audioSource.clip = hitSound;
+
+    }
 	
 	// Update is called once per frame
 	new void Update () {
@@ -42,6 +44,7 @@ public class Enemy : Human {
 			Debug.Log ("EnemyAttacking");
 			base.Attack ();
 			player.GetComponent<Player> ().Hit (attackBase * attackLevel);
+            audioSource.Play();
 		}
 	}
 	void OnTriggerEnter2D(Collider2D other){
