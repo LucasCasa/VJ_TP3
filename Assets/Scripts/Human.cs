@@ -11,21 +11,21 @@ abstract public class Human : MonoBehaviour {
     public bool dead = false;
 
     protected float maxLifeBase = 1;
-    protected int maxLifeLevel = 1;
-    protected float life;
+    public int maxLifeLevel = 1;
+    public float life;
 
     protected float attackBase;
-    protected int attackLevel = 1;
+    public int attackLevel = 1;
 
     protected float runSpeedBase = 1;
-    protected int runSpeedLevel = 1;
+    public int runSpeedLevel = 1;
     protected float actualSpeed;
 
     protected float shieldBase;
-    protected int shieldLevel = 1;
+    public int shieldLevel = 1;
 
     protected float attackSpeedBase = 1;
-    protected int attackSpeedLevel = 1;
+    public int attackSpeedLevel = 1;
     protected float actualAttackSpeed;
 
     protected AudioSource audioSource;

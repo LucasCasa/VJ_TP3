@@ -11,4 +11,9 @@ public class MenuButtons: MonoBehaviour
     public void Quit(){
         Application.Quit();
     }
+
+	public void LoadGame() {
+		SaveLoad.load = true;
+		goToStart ();
+	}
 }
