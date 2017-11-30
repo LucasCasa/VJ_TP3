@@ -22,7 +22,7 @@ public class LevelUpScreenManager : MonoBehaviour {
 	Quaternion q = new Quaternion(0,0,0,0);
 	bool active = false;
     private int idToLevel = -1;
-	int lastLevel = 1;
+	public int lastLevel = 1;
 
     private enum Positions { SPEED,ATTACK,ATTACKSPEED,LIFE };
 	// Use this for initialization

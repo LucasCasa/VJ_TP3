@@ -30,8 +30,8 @@ public class MapGenerator : MonoBehaviour {
     void Update() {
     }
 
-    public void LoadConnectedMap(int rooms, int min, int variance, int enemies) {
-        level++;
+	public void LoadConnectedMap(int rooms, int min, int variance, int enemies, int level) {
+		this.level = level;
         KillRemainingEnemies();
         ClearMap();
         List<Vector2> seeds = new List<Vector2> {

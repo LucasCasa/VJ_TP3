@@ -7,13 +7,15 @@ using UnityEngine.UI;
 public class Player : Human {
 	List<Enemy> Targets = new List<Enemy>();
 	public RectTransform healthBar;
-	protected float healthBarWidth;
+	public float healthBarWidth = 138;
+
+	protected float maxLifeBase = 10;
 
 	public RectTransform expBar;
-	protected float expBarWidth;
+	protected float expBarWidth = 64;
 	public Text levelText;
 	public int level = 1;
-	int xp = 0;
+	public int xp = 0;
 	int xpNecessary = 10;
     private float attackSpeed = 1;
     public bool winLevel = false; 
@@ -21,10 +23,10 @@ public class Player : Human {
 	// Use this for initialization
 	new void Start () {
         base.Start();   
-		healthBarWidth = healthBar.sizeDelta.x;
-		expBarWidth = expBar.sizeDelta.x;
-        life = 10;
-		maxLifeBase = 10;
+		if (level == 1) {
+			life = 10;
+			maxLifeBase = 10;
+		}
         attackBase = 1;
 		acp.SetFloat ("attackSpeed", attackSpeed);
 		acp.SetFloat ("life", life);
@@ -76,7 +78,10 @@ public class Player : Human {
             }
         }
 	}
-
+	public void updateUI() {
+		updateBar ();
+		updateExpBar ();
+	}
 	void OnTriggerExit2D(Collider2D other){
 		Debug.Log ("Fuera del rango");
 		Enemy e = other.GetComponent<Enemy> ();
@@ -85,16 +90,19 @@ public class Player : Human {
 	}
 
 	override protected void updateBar(){
+		Debug.Log ("Width: " + healthBarWidth);
+		Debug.Log ("life: " + life);
+		Debug.Log ("mult: " + (maxLifeBase * maxLifeLevel));
 		healthBar.sizeDelta = new Vector2 (healthBarWidth * life / (maxLifeBase * maxLifeLevel), healthBar.sizeDelta.y);
 	}
 
 	void updateExpBar(){
-		if (xp == xpNecessary) {
+		if (xp >= xpNecessary) {
 			level++;
 			xp = 0;
 			xpNecessary = xpNecessary + 5;
-			levelText.text = level.ToString();
 		}
+		levelText.text = level.ToString();
 		expBar.sizeDelta = new Vector2 (expBarWidth * xp / xpNecessary, expBar.sizeDelta.y);
 	}
 
